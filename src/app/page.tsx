@@ -33,7 +33,7 @@ export default function Home() {
 
       {/* Subtext */}
       <p className="animate-fade-up-3 mb-12 max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
-        Data and supply chain technology and consulting — built for businesses
+        Data and supply chain technology and consulting, built for businesses
         that demand precision, clarity, and competitive edge.
       </p>
 
