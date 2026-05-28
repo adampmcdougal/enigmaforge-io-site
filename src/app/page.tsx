@@ -43,16 +43,16 @@ export default function Home() {
       </div>
 
       {/* Pillars */}
-      <div className="animate-fade-up-4 mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600">
+      <div className="animate-fade-up-4 mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400">
         <span>Data Engineering</span>
-        <span className="hidden h-3 w-px bg-slate-800 sm:block" />
+        <span className="hidden h-3 w-px bg-slate-600 sm:block" />
         <span>Supply Chain Strategy</span>
-        <span className="hidden h-3 w-px bg-slate-800 sm:block" />
+        <span className="hidden h-3 w-px bg-slate-600 sm:block" />
         <span>Technology Consulting</span>
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-6 text-xs text-slate-700">
+      <footer className="absolute bottom-6 text-xs text-slate-500">
         © {new Date().getFullYear()} EnigmaForge &middot; enigmaforge.io
       </footer>
     </main>
