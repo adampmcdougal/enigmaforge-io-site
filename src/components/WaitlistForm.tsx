@@ -5,22 +5,26 @@ import { useState } from "react";
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function WaitlistForm() {
-  const [email, setEmail] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!email) return;
+    if (!form.name || !form.email || !form.message) return;
 
     setStatus("loading");
     setMessage("");
 
     try {
-      const res = await fetch("/api/waitlist", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
@@ -32,8 +36,8 @@ export default function WaitlistForm() {
       }
 
       setStatus("success");
-      setEmail("");
-      setMessage("You're on the list! We'll be in touch when we launch.");
+      setForm({ name: "", email: "", company: "", message: "" });
+      setMessage("Thanks! We'll be in touch within 1 business day to confirm your meeting.");
     } catch {
       setStatus("error");
       setMessage("Network error. Please try again.");
@@ -52,41 +56,80 @@ export default function WaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
       <div className="flex flex-col gap-3 sm:flex-row">
         <input
-          type="email"
+          type="text"
+          name="name"
           required
-          placeholder="Enter your email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          maxLength={100}
+          placeholder="Your name"
+          value={form.name}
+          onChange={handleChange}
           disabled={status === "loading"}
           className="glow-border flex-1 rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-cyan-500/50 focus:bg-white/8 disabled:opacity-50"
-          aria-label="Email address"
+          aria-label="Your name"
         />
-        <button
-          type="submit"
-          disabled={status === "loading" || !email}
-          className="rounded-lg bg-cyan-500 px-5 py-3 text-sm font-semibold text-[#020817] transition-all hover:bg-cyan-400 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-          style={{ minWidth: "9rem" }}
-        >
-          {status === "loading" ? (
-            <span className="flex items-center justify-center gap-2">
-              <SpinnerIcon />
-              Submitting…
-            </span>
-          ) : (
-            "Join Waitlist"
-          )}
-        </button>
+        <input
+          type="text"
+          name="company"
+          maxLength={200}
+          placeholder="Company (optional)"
+          value={form.company}
+          onChange={handleChange}
+          disabled={status === "loading"}
+          className="glow-border flex-1 rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-cyan-500/50 focus:bg-white/8 disabled:opacity-50"
+          aria-label="Company name"
+        />
       </div>
 
+      <input
+        type="email"
+        name="email"
+        required
+        maxLength={254}
+        placeholder="Email address"
+        value={form.email}
+        onChange={handleChange}
+        disabled={status === "loading"}
+        className="glow-border w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-cyan-500/50 focus:bg-white/8 disabled:opacity-50"
+        aria-label="Email address"
+      />
+
+      <textarea
+        name="message"
+        required
+        maxLength={2000}
+        placeholder="What would you like to discuss?"
+        value={form.message}
+        onChange={handleChange}
+        disabled={status === "loading"}
+        rows={3}
+        className="glow-border w-full resize-none rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-colors focus:border-cyan-500/50 focus:bg-white/8 disabled:opacity-50"
+        aria-label="Message"
+      />
+
+      <button
+        type="submit"
+        disabled={status === "loading" || !form.name || !form.email || !form.message}
+        className="rounded-lg bg-cyan-500 px-5 py-3 text-sm font-semibold text-[#020817] transition-all hover:bg-cyan-400 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {status === "loading" ? (
+          <span className="flex items-center justify-center gap-2">
+            <SpinnerIcon />
+            Sending…
+          </span>
+        ) : (
+          "Request a Meeting"
+        )}
+      </button>
+
       {status === "error" && (
-        <p className="mt-3 text-center text-xs text-red-400">{message}</p>
+        <p className="text-center text-xs text-red-400">{message}</p>
       )}
 
-      <p className="mt-3 text-xs text-slate-600">
-        No spam, ever. Unsubscribe at any time.
+      <p className="text-xs text-slate-600">
+        We&apos;ll respond within 1 business day to schedule a time that works for you.
       </p>
     </form>
   );

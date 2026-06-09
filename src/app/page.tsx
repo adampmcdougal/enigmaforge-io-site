@@ -1,4 +1,4 @@
-import LogoMark from "@/components/LogoMark";
+import Image from "next/image";
 import WaitlistForm from "@/components/WaitlistForm";
 
 export default function Home() {
@@ -10,11 +10,16 @@ export default function Home() {
       <div className="radial-glow absolute inset-0 -z-10" />
 
       {/* Logo */}
-      <div className="animate-fade-up mb-10 flex items-center gap-3">
-        <LogoMark size={44} />
-        <span className="text-xl font-bold tracking-[0.35em] text-white uppercase">
-          EnigmaForge
-        </span>
+      <div className="animate-fade-up mb-10">
+        <Image
+          src="/logo.png"
+          alt="EnigmaForge"
+          width={220}
+          height={220}
+          priority
+          className="mx-auto"
+          style={{ mixBlendMode: "screen" }}
+        />
       </div>
 
       {/* Badge */}
@@ -32,12 +37,17 @@ export default function Home() {
       </h1>
 
       {/* Subtext */}
-      <p className="animate-fade-up-3 mb-12 max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
+      <p className="animate-fade-up-3 mb-6 max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
         Data and supply chain technology and consulting, built for businesses
         that demand precision, clarity, and competitive edge.
       </p>
 
-      {/* Waitlist form */}
+      {/* CTA label */}
+      <p className="animate-fade-up-3 mb-8 text-sm font-medium text-slate-300">
+        Ready to get started? Request a meeting below.
+      </p>
+
+      {/* Meeting request form */}
       <div className="animate-fade-up-4 w-full max-w-md">
         <WaitlistForm />
       </div>
