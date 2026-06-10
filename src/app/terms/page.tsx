@@ -104,9 +104,10 @@ export default function TermsAndConditions() {
 
         <Section title="10. Governing Law">
           <p>
-            These Terms are governed by and construed in accordance with applicable law. Any
-            disputes arising under these Terms shall be subject to the exclusive jurisdiction of
-            the courts in the jurisdiction in which EnigmaForge operates.
+            These Terms are governed by and construed in accordance with the laws of the State of
+            Utah, United States, without regard to its conflict of law provisions. Any disputes
+            arising under these Terms shall be subject to the exclusive jurisdiction of the state
+            and federal courts located in Utah.
           </p>
         </Section>
 
