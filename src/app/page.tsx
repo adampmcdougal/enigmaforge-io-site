@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import WaitlistForm from "@/components/WaitlistForm";
 
 export default function Home() {
@@ -62,8 +63,12 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-6 text-xs text-slate-500">
-        © {new Date().getFullYear()} EnigmaForge &middot; enigmaforge.io
+      <footer className="absolute bottom-6 flex items-center gap-3 text-xs text-slate-500">
+        <span>© {new Date().getFullYear()} EnigmaForge</span>
+        <span className="h-3 w-px bg-slate-700" />
+        <Link href="/privacy" className="hover:text-slate-300">Privacy Policy</Link>
+        <span className="h-3 w-px bg-slate-700" />
+        <Link href="/terms" className="hover:text-slate-300">Terms &amp; Conditions</Link>
       </footer>
     </main>
   );
