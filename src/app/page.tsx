@@ -11,16 +11,19 @@ export default function Home() {
       <div className="radial-glow absolute inset-0 -z-10" />
 
       {/* Logo */}
-      <div className="animate-fade-up mb-10">
+      <div className="animate-fade-up mb-10 flex flex-col items-center gap-4">
         <Image
-          src="/logo.png"
-          alt="EnigmaForge"
-          width={220}
-          height={220}
+          src="/logo.svg"
+          alt="EnigmaForge mark"
+          width={108}
+          height={108}
           priority
           className="mx-auto"
-          style={{ mixBlendMode: "screen" }}
         />
+        <div className="flex flex-col items-center leading-none">
+          <span className="text-2xl font-bold tracking-[0.18em] text-white uppercase">Enigma</span>
+          <span className="text-base font-light tracking-[0.5em] text-cyan-400 uppercase">Forge</span>
+        </div>
       </div>
 
       {/* Badge */}
@@ -65,6 +68,8 @@ export default function Home() {
       {/* Footer */}
       <footer className="absolute bottom-6 flex items-center gap-3 text-xs text-slate-500">
         <span>© {new Date().getFullYear()} EnigmaForge</span>
+        <span className="h-3 w-px bg-slate-700" />
+        <Link href="/about" className="hover:text-slate-300">About</Link>
         <span className="h-3 w-px bg-slate-700" />
         <Link href="/privacy" className="hover:text-slate-300">Privacy Policy</Link>
         <span className="h-3 w-px bg-slate-700" />
